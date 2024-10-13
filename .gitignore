@@ -1,0 +1,35 @@
+# Environnement virtuel
+.venv/
+envStreamProject/
+
+# Fichiers de configuration IDE
+.idea/
+*.iml
+*.pyc
+__pycache__/
+
+# Caches Python
+*.pyo
+*.pyd
+
+# Fichiers de logs
+*.log
+
+# Fichiers de tests
+*.coverage
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.cache
+
+# Fichiers de configuration de test
+.mypy_cache/
+.pytest_cache/
+
+# Système d'exploitation
+.DS_Store
+Thumbs.db
+
+# Autres fichiers que vous ne souhaitez pas suivre
+*.env

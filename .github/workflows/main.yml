@@ -1,0 +1,39 @@
+name: Cron job Twc
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Generate date and hour
+        id: generate_datetime
+        run: |
+          current_datetime=$(python -c "from datetime import datetime; print(datetime.now().strftime('%Y-%m-%d'))")
+          echo "current_datetime=$current_datetime" >> $GITHUB_ENV
+
+      - name: Run Python script
+        id: download
+        run: python3 StreamDownloader.py || echo "Error while downloading"
+
+      - name: Upload video artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stream
+          path: "stream_${{ env.current_datetime }}.mp4"
